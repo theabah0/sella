@@ -1,0 +1,263 @@
+
+    // Your React code here
+    // v6
+    const Receipt = () => {
+  const [rows, setRows] = React.useState([]);
+
+  const handleAddRow = () => {
+    setRows([...rows, { qty: 1, item: "", rate: 0, amount: 0 }]);
+  };
+
+  const handleChange = (index, field, value) => {
+    const updatedRows = [...rows];
+    updatedRows[index][field] = value;
+
+    // Calculate the new "Amount" based on "Rate" and "Qty"
+    if (field === 'qty' || field === 'rate') {
+      const qty = parseFloat(updatedRows[index].qty);
+      const rate = parseFloat(updatedRows[index].rate);
+      updatedRows[index].amount = qty * rate;
+    }
+
+    setRows(updatedRows);
+  };
+
+  return (
+    <div className="w-full">
+      <h1 className="text-center text-xl font-bold">Receipt</h1>
+      <form className="w-full">
+        <div className="overflow-x-auto">
+          <table className="w-full table-auto border-blue-500">
+            <thead>
+              <tr>
+                <th className="px-4 py-2">Qty</th>
+                <th className="px-4 py-2">Item</th>
+                <th className="px-4 py-2">Rate</th>
+                <th className="px-4 py-2">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, index) => (
+                <Row
+                  key={index}
+                  qty={row.qty}
+                  item={row.item}
+                  rate={row.rate}
+                  amount={row.amount}
+                  onChange={(field, value) => handleChange(index, field, value)}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <button
+          className="mt-4 btn btn-primary"
+          type="button"
+          onClick={handleAddRow}
+        >
+          Add Row
+        </button>
+        <button
+          className="mt-4 btn btn-primary"
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  );
+};
+
+const Row = ({ qty, item, rate, amount, onChange }) => {
+  return (
+    <tr>
+      <td>
+        <input
+          type="number"
+          value={qty}
+          onChange={(e) => onChange('qty', e.target.value)}
+          className="w-full p-2"
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          value={item}
+          onChange={(e) => onChange('item', e.target.value)}
+          className="w-full p-2"
+        />
+      </td>
+      <td>
+        <input
+          type="number"
+          value={rate}
+          onChange={(e) => onChange('rate', e.target.value)}
+          className="w-full p-2"
+        />
+      </td>
+      <td>
+        {/* The "Amount" field is read-only */}
+        <input
+          type="text"
+          value={amount}
+          readOnly
+          className="w-full p-2 bg-gray-200"
+        />
+      </td>
+    </tr>
+  );
+};
+
+   
+    //////header
+    const Header=()=> {
+        
+      
+   return(
+        <div className="h-1/10">
+           
+            <h1 className='text-lg font-bold'>Prosper</h1>
+            <nav className='relative flex justify-around'>
+                
+        
+           </nav>
+           
+            </div>
+        )
+    }
+    
+    
+    
+      const Footer=()=> {
+        
+      
+   return(
+        <div className="h-1/6">
+           <SideNav/>
+            <h1 className='text-lg font-bold'>Footer</h1>
+            <nav className='relative flex justify-around'>
+                
+        
+           </nav>
+           
+            </div>
+        )
+    }
+  
+    
+    //////////////side nav
+    
+
+const SideNav = () => {
+  const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);
+
+       
+     const NavList = () => {
+  var NavItems = ["Profile","New Products","Sales","Stock","Reports","Customers","Supplieres","Orders","Settings"];
+  return (
+    <ul className='relative flex justify-around flex-row  '>
+      {NavItems.map((item) => (
+        <p className="mr-4">{item}</p>
+      ))}
+    </ul>
+  );
+};
+
+ 
+
+  const handleToggleSideNav = () => {
+    setIsSideNavOpen((prevState) => !prevState);
+  };
+
+  return (
+    <div>
+      {/* Icon/Button to open the side nav */}
+      <button onClick={handleToggleSideNav}>
+         <i className="fas fa-bars"></i>
+   menu
+     
+      </button>
+
+      {/* Side Nav content */}
+      {isSideNavOpen && (
+        <div className="side-nav">
+          {/* Your side navigation content goes here */}
+          <ul>
+           
+          {/*  <NavList />*/}
+            
+            {/* Add more navigation items */}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const RightTab=()=>{
+    return <div className="bg-red-300 container ">Right Tab</div>
+}
+const MiddleTab=()=>{
+    
+    return <div className="bg-yellow-500 container flex-wrap ">Middle Tab
+    <Receipt />
+       
+    <hr />
+    <h1 className="text-sm font-bold text-purple-600">Hello, this content is generated by React!</h1>
+          
+
+         
+    </div>
+}
+const LeftTab = () => {
+  var Items = [
+    "Profile",
+    "Products",
+    "Sales",
+    "Stock",
+    "Reports",
+    "Customers",
+    "Suppliers",
+    "Orders",
+    "Settings"
+  ];
+
+  const list1 = Items.map(function eat(item) {
+    return <button className="bg-red-700 p-4">{item}
+    </button> ;
+  });
+
+  return (
+    <div className="sm:hidden overflow-x-scroll  bg-blue-500 container">
+      Left Tab
+      {true && <h1>wow</h1>}
+      <ul class="bg-red">{list1}</ul>
+    </div>
+  );
+};
+
+    //////////////
+    const App = () => {
+      return (
+        <div className="container overflow-auto min-h-screen flex-row flex-grow items-stretch h-full border-4 border-dashed border-black h-screen inset-0 ">
+            
+            <Header />
+                <div>
+                <div className=" flex flex-row-reverse flex-grow container:none sticky inset-0 h-5/6 border-4">
+             <RightTab />
+                <MiddleTab />
+                 <LeftTab />
+                     
+                     </div>
+                     </div>
+                   <Footer/>
+                  
+                     
+          
+        </div>
+      );
+    };
+
+    // Render the React component to the root element
+    ReactDOM.render(<App />, document.getElementById('root'));
+  
