@@ -373,7 +373,7 @@ const { openWindowId, handleOpenWindow, handleCloseWindow } = WindowArea();
   
  const Profile=()=>{
     return (
-  <div className=" transition-opacity duration-1000  fixed top-0 left-0 h-screen w-screen bg-gray-800 text-white flex justify-center items-center">
+  <div className=" transition-opacity duration-1000  fixed top-0 left-0 h-screen w-screen bg-gray-800 text-white flex justify-center items-center overflow-sroll">
       
       
     <div className=" items-center relative text-xl font-bold w-full h-screen"><button className=" top-0 left-0" onClick={()=>handleCloseWindow()}> close</button><hr /><h1 className="top-10 "> User Profile </h1> 
@@ -422,6 +422,7 @@ const Stock=()=>{
         <CloseBtn/>
         <hr />
         <h1 className="top-10">Stock</h1> </div>
+       {Suggestions}
   </div>
 )
 }
